@@ -7,10 +7,12 @@
   const emojis = ref(0);
   const vocals = ref(0.0000001);
   const timer = ref(null);
+  const fancy = ref(false);
   // Sliders
   const timerSliderValue = ref(50);
   const emojiSliderValue = ref(0);
   const vocalSliderValue = ref(0.0000001);
+  const fancyCheckboxValue = ref(false);
 
   const emojisSliderChanged = (slider) => {
     emojis.value = parseInt(slider.currentTarget?.value);
@@ -35,6 +37,11 @@
     }, parseInt(slider.currentTarget?.value) * 100);
   }
 
+  const fancyCheckboxChanged = (checkbox) => {
+    const value = checkbox.currentTarget?.checked;
+    fancy.value = value;
+  }
+
   song.value = new Song();
   
 </script>
@@ -54,14 +61,15 @@
           <Oc
             :oc="line.value"
             :index="i"
-            :iscurrent="i === 6">
+            :iscurrent="i === 6"
+            :fancy="fancy">
           </Oc>
         </li>
       </TransitionGroup>
     </div>
     <div id="swing">
       <div class="slidecontainer">
-        <div class="speed-title">speed...</div>
+        <div class="element-title">speed...</div>
         <input
           type="range"
           min="1"
@@ -74,7 +82,7 @@
         >
       </div>
       <div class="slidecontainer">
-        <div class="speed-title">emojis...</div>
+        <div class="element-title">emojis...</div>
         <input
           type="range"
           min="0"
@@ -87,7 +95,7 @@
         >
       </div>
       <div class="slidecontainer">
-        <div class="speed-title">vocals...</div>
+        <div class="element-title">vocals...</div>
         <input
           type="range"
           min="1"
@@ -97,6 +105,16 @@
           id="vocals"
           v-model="vocalSliderValue"
           v-on:change="vocalSliderChanged"
+        >
+      </div>
+      <div class="slidecontainer">
+        <div class="element-title">fancy...</div>
+        <input
+          type="checkbox"
+          class="checkbox"
+          id="fancy"
+          v-model="fancyCheckboxValue"
+          v-on:change="fancyCheckboxChanged"
         >
       </div>
       <div class="resetcontainer">
@@ -225,7 +243,7 @@
     background: #666;
     cursor: pointer;
   }
-  .speed-title {
+  .element-title {
     padding: 10px;
     font-size: 20px;
     color: white;
@@ -274,5 +292,16 @@
   }
   #reset-button:focus:not(:active) {
     box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
+  }
+  input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+  }
+  input[type='checkbox']:checked {
+      background: #999;
   }
 </style>

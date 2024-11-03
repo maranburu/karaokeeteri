@@ -1,6 +1,6 @@
 <script setup>
     import {probability} from '@/ocs/shared/utils';
-    const props = defineProps(['oc', 'iscurrent', 'index']);
+    const props = defineProps(['oc', 'iscurrent', 'index', 'fancy']);
 
     const getFontClass = () => {
         if (probability(0.1)) return 'weird-character-1';
@@ -12,8 +12,8 @@
         if (probability(0.1)) return 'bigger';
         return '';
     }
-    const getCharacterClass = (item) => {
-        if (item.length === 1) return ''; // Emojis
+    const getCharacterClass = () => {
+        if (!props.fancy) return '';
         return `${getFontClass()} ${getSizeClass()}`;
     }
 
@@ -27,7 +27,7 @@
         <span
             v-for="(item, i) in props.oc.split('')"
             :key="item + i"
-            :class="getCharacterClass(item, iscurrent)">
+            :class="getCharacterClass()">
             {{ item }}
         </span>
     </div>
@@ -44,15 +44,18 @@
         opacity: 0.4;
         transition: opacity 2s ease;
         min-height: 55px;
+        transition: all 2s ease-in-out;
     }
     .oc.current {
         opacity: 1;
     }
     .oc.old {
         opacity: 0.2;
+        letter-spacing: 6px;
     }
     .oc.veryold {
         opacity: 0.1;
+        letter-spacing: 10px;
     }
     .weird-character-1 {
         font-family: "Cute Font", sans-serif;
