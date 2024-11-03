@@ -2,23 +2,27 @@
     import {probability} from '@/ocs/shared/utils';
     const props = defineProps(['oc', 'iscurrent', 'index', 'fancy']);
 
-    const getFontClass = () => {
-        if (probability(0.1)) return 'weird-character-1';
-        if (probability(0.1)) return 'weird-character-2';
-        if (probability(0.1)) return 'weird-character-3';
+    const getFontClass = (oc, i) => {
+        if (oc.length === 0 || i === 0) return '';
+        const modulo = oc.length % i;
+        if (modulo === 2) return 'weird-character-1';
+        if (modulo === 3) return 'weird-character-2';
+        if (modulo === 5) return 'weird-character-3';
         return '';
     }
-    const getSizeClass = () => {
-        if (probability(0.1)) return 'bigger';
+    const getSizeClass = (oc, i) => {
+        if (oc.length === 0 || i === 0) return '';
+        const modulo = oc.length % i;
+        if (modulo === 7) return 'bigger';
         return '';
     }
-    const getCharacterClass = () => {
+    const getCharacterClass = (oc, i) => {
         if (!props.fancy) return '';
-        return `${getFontClass()} ${getSizeClass()}`;
+        return `${getFontClass(oc, i)} ${getSizeClass(oc,i )}`;
     }
 
     const getOcClass = (iscurrent, index) => {
-        return `oc ${iscurrent ? 'current' : ''} ${index < 4 ? 'old' : ''} ${index < 2 ? 'veryold' : ''}`;
+        return `oc ${iscurrent ? 'current' : ''} ${index < 4 ? 'old' : ''} ${index < 2 ? 'veryold' : ''} ${props.fancy ? 'fancy' : ''}`;
     }
 </script>
 
@@ -27,7 +31,7 @@
         <span
             v-for="(item, i) in props.oc.split('')"
             :key="item + i"
-            :class="getCharacterClass()">
+            :class="getCharacterClass(props.oc, i)">
             {{ item }}
         </span>
     </div>
@@ -51,10 +55,14 @@
     }
     .oc.old {
         opacity: 0.2;
+    }
+    .oc.old.fancy {
         letter-spacing: 6px;
     }
     .oc.veryold {
         opacity: 0.1;
+    }
+    .oc.veryold.fancy {
         letter-spacing: 10px;
     }
     .weird-character-1 {
