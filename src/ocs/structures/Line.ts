@@ -6,7 +6,8 @@ import Fumo from '@/ocs/structures/Fumo';
 import Paraula from '@/ocs/structures/Paraula';
 import Lenigmaticdeldr from '@/ocs/structures/Lenigmaticdeldr';
 import Vivimalaera from '@/ocs/structures/Vivimalaera';
-import Miro from "./Miro";
+import Miro from "@/ocs/structures/Miro";
+import Cami from "@/ocs/structures/Cami";
 
 export default class Line {
     static get(emojis: number, vocals: number): string {
@@ -19,7 +20,8 @@ export default class Line {
             'vivimalaera',
             'paraula',
             'paraula', // +prob 
-            'miro'
+            'miro',
+            'cami'
         ]);
         let newLine = '';
         switch(type) {
@@ -46,6 +48,9 @@ export default class Line {
                 break;
             case 'miro':
                 newLine = new Miro().print();
+                break;
+            case 'cami':
+                newLine = new Cami().print();
                 break;
             default:
                 break;

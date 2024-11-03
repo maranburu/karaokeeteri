@@ -28,6 +28,8 @@ export default class Paraula implements Structure {
         }
         if (probability(0.1)) {
             this.value = `${sustantive.root} i ${sustantive2.root}${ellipsis}`;
+        } else if (probability(0.1)) {
+            this.value = `${sustantive.root} amb ${sustantive2.root}${ellipsis}`;
         } else if (probability(0.2)) {
             const sustantive2StartsWithVocal = isVocal(sustantive2.root[0]);
             const d = sustantive2StartsWithVocal ? 'd\'' : 'de ';
@@ -36,6 +38,10 @@ export default class Paraula implements Structure {
         if (probability(0.1)) {
             const paraula2 = new Paraula();
             this.value = `${this.value} (${paraula2.print()})`;
+        }
+        if (this.value.indexOf(' ') < 0) {
+            const add = getRandom(['...', '?', '!']);
+            this.value = `${sustantive.root}${add}`;
         }
     }
 
