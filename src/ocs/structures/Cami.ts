@@ -1,6 +1,5 @@
-import { sustantives } from "../dictionary/sustantives.js";
 import Structure from "../shared/Structure";
-import { getRandom } from "../shared/utils.js";
+import Sustantive from "../wordTypes/Sustantive.js";
 
 export default class Cami implements Structure {
   constructor(
@@ -11,8 +10,8 @@ export default class Cami implements Structure {
   private value: string;
 
   private generate(): void {
-    let sustantive = getRandom(sustantives);
-    let sustantive2 = getRandom(sustantives);
+    let sustantive = Sustantive.get('f');
+    let sustantive2 = Sustantive.get();
     this.value = `me haré una ${sustantive.print()} con tu ${sustantive2.print()}`;
   }
 
