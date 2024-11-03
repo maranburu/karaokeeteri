@@ -183,6 +183,7 @@
     padding-left: 30px;
     padding-top: 15px;
     flex-grow: 2;
+    align-self: flex-end;
   }
   #lines-container {
     display: flex;
