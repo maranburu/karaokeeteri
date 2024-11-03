@@ -42,6 +42,10 @@
     fancy.value = value;
   }
 
+  const getLinesContainerClass = () => {
+    return fancy.value ? 'fancy-lines-container' : '';
+  }
+
   song.value = new Song();
   
 </script>
@@ -54,7 +58,7 @@
     {{ song.getSection() }}
   </div>
   <div id="main-body">
-    <div id="lines-container">
+    <div id="lines-container" :class="getLinesContainerClass()">
       <div id="notes" class="wiggle">♫</div>
       <TransitionGroup id="lines" name="list" tag="ul">
         <li v-for="(line, i) in song.getLines()" :key="line.id">
@@ -184,6 +188,9 @@
     padding-top: 15px;
     flex-grow: 2;
     align-self: flex-end;
+  }
+  .fancy-lines-container #lines {
+    padding-top: 0px;
   }
   #lines-container {
     display: flex;
